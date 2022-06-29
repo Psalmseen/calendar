@@ -61,7 +61,6 @@ export class CalandarApp extends LitElement {
 
   static styles: CSSResultGroup = calendarStyle;
   protected render(): unknown {
-    console.log(dayjs(new Date(2022, 6, 31)).add(15, 'days'));
     this.getPaddingDays();
     this.getDaysOfMonth();
     return html`<div class="calendar">
