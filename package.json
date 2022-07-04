@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "dayjs": "^1.11.3",
-    "lit": "^2.0.2"
+    "lit": "^2.0.2",
+    "lit-media-query": "^1.10.0"
   },
   "devDependencies": {
     "vite": "^2.9.9"
