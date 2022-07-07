@@ -2,13 +2,15 @@ import dayjs from 'dayjs';
 export interface data {
   imgUrl: string;
   employeeName: string;
-  appointments: {
-    serviceName: string;
-    date: string;
-    startTime: string;
-    endTime: string;
-    price: number;
-  }[];
+  appointments: appointment[];
+}
+
+export interface appointment {
+  serviceName: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  price: number;
 }
 
 // export const stubData = [];
@@ -25,7 +27,7 @@ export const stubData: data[] = [
           .format('YYYY-MM-DD'),
         startTime: '05:45',
         endTime: '07:00',
-        price: 66.5,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Ronaldo hairstyle',
@@ -35,7 +37,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 23.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -45,7 +47,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 43.3,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -57,7 +59,7 @@ export const stubData: data[] = [
         serviceName: 'David hairstyle',
         startTime: '15:45',
         endTime: '17:07',
-        price: 23.3,
+        price: Math.random() * 100,
         date: dayjs()
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
@@ -71,7 +73,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 53.5,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -87,7 +89,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 564.2,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -103,7 +105,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 85.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'DeGea hairstyle',
@@ -113,7 +115,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 96.42,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -123,7 +125,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 65.32,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -139,7 +141,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 46.5,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'DeGea hairstyle',
@@ -149,7 +151,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 73.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -159,7 +161,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 98.32,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -176,7 +178,7 @@ export const stubData: data[] = [
           .format('YYYY-MM-DD'),
         startTime: '05:45',
         endTime: '07:00',
-        price: 66.5,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Ronaldo hairstyle',
@@ -186,7 +188,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 23.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -196,7 +198,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 43.3,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -208,7 +210,7 @@ export const stubData: data[] = [
         serviceName: 'David hairstyle',
         startTime: '15:45',
         endTime: '17:07',
-        price: 23.3,
+        price: Math.random() * 100,
         date: dayjs()
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
@@ -222,7 +224,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 53.5,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -238,7 +240,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 564.2,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -254,7 +256,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 85.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'DeGea hairstyle',
@@ -264,7 +266,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 96.42,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -274,7 +276,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 65.32,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -290,7 +292,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 46.5,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'DeGea hairstyle',
@@ -300,7 +302,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 73.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -310,7 +312,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 98.32,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -327,7 +329,7 @@ export const stubData: data[] = [
           .format('YYYY-MM-DD'),
         startTime: '05:45',
         endTime: '07:00',
-        price: 66.5,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Ronaldo hairstyle',
@@ -337,7 +339,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 23.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -347,7 +349,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 43.3,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -359,7 +361,7 @@ export const stubData: data[] = [
         serviceName: 'David hairstyle',
         startTime: '15:45',
         endTime: '17:07',
-        price: 23.3,
+        price: Math.random() * 100,
         date: dayjs()
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
@@ -373,7 +375,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 53.5,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -389,7 +391,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 564.2,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -405,7 +407,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 85.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'DeGea hairstyle',
@@ -415,7 +417,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 96.42,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -425,7 +427,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 65.32,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -441,7 +443,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 46.5,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'DeGea hairstyle',
@@ -451,7 +453,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 73.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -461,7 +463,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 98.32,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -478,7 +480,7 @@ export const stubData: data[] = [
           .format('YYYY-MM-DD'),
         startTime: '05:45',
         endTime: '07:00',
-        price: 66.5,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Ronaldo hairstyle',
@@ -488,7 +490,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 23.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -498,7 +500,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 43.3,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -510,7 +512,7 @@ export const stubData: data[] = [
         serviceName: 'David hairstyle',
         startTime: '15:45',
         endTime: '17:07',
-        price: 23.3,
+        price: Math.random() * 100,
         date: dayjs()
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
@@ -524,7 +526,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 53.5,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -540,7 +542,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 564.2,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -556,7 +558,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 85.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'DeGea hairstyle',
@@ -566,7 +568,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 96.42,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -576,7 +578,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 65.32,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -592,7 +594,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 46.5,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'DeGea hairstyle',
@@ -602,7 +604,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 73.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -612,7 +614,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 98.32,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -629,7 +631,7 @@ export const stubData: data[] = [
           .format('YYYY-MM-DD'),
         startTime: '05:45',
         endTime: '07:00',
-        price: 66.5,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Ronaldo hairstyle',
@@ -639,7 +641,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 23.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -649,7 +651,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 43.3,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -661,7 +663,7 @@ export const stubData: data[] = [
         serviceName: 'David hairstyle',
         startTime: '15:45',
         endTime: '17:07',
-        price: 23.3,
+        price: Math.random() * 100,
         date: dayjs()
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
@@ -675,7 +677,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 53.5,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -691,7 +693,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 564.2,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -707,7 +709,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 85.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'DeGea hairstyle',
@@ -717,7 +719,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 96.42,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -727,7 +729,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 65.32,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -743,7 +745,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 46.5,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'DeGea hairstyle',
@@ -753,7 +755,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 73.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -763,7 +765,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 98.32,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -780,7 +782,7 @@ export const stubData: data[] = [
           .format('YYYY-MM-DD'),
         startTime: '05:45',
         endTime: '07:00',
-        price: 66.5,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Ronaldo hairstyle',
@@ -790,7 +792,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 23.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -800,7 +802,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 43.3,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -812,7 +814,7 @@ export const stubData: data[] = [
         serviceName: 'David hairstyle',
         startTime: '15:45',
         endTime: '17:07',
-        price: 23.3,
+        price: Math.random() * 100,
         date: dayjs()
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
@@ -826,7 +828,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 53.5,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -842,7 +844,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 564.2,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -858,7 +860,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 85.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'DeGea hairstyle',
@@ -868,7 +870,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 96.42,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -878,7 +880,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 65.32,
+        price: Math.random() * 100,
       },
     ],
   },
@@ -894,7 +896,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 46.5,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'DeGea hairstyle',
@@ -904,7 +906,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 73.4,
+        price: Math.random() * 100,
       },
       {
         serviceName: 'Neymar hairstyle',
@@ -914,7 +916,7 @@ export const stubData: data[] = [
           .startOf('week')
           .add(Math.floor(Math.random() * 7), 'day')
           .format('YYYY-MM-DD'),
-        price: 98.32,
+        price: Math.random() * 100,
       },
     ],
   },

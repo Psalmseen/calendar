@@ -4,9 +4,11 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { weekCalendarStyle } from './week-calendar.styles';
 import { styleMap } from 'lit/directives/style-map.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { stubData } from '../resources/fetched-data';
+import { appointment, stubData } from '../resources/fetched-data';
 import { data } from '../resources/fetched-data.js';
 import 'lit-media-query/lit-media-query.js';
+import '../calendar-card/calendar-card';
+import { SpDashboardAppointmentCardData } from '../calendar-card/calendar-card';
 @customElement('week-calendar')
 export class WeekCalandar extends LitElement {
   static styles: CSSResultGroup = weekCalendarStyle;
@@ -15,7 +17,6 @@ export class WeekCalandar extends LitElement {
   private mobileQuery = '(max-width: 768px)';
 
   @property({ type: Array }) private employeeAppointments = [...stubData];
-  /* .slice(0, 3) */
   @property({ type: Number }) private numberOfGridOnScreen = 7;
   @property({ type: Boolean }) isEmployeeDisplay = true;
   @property({ type: Boolean }) isNextShown = true;
@@ -26,24 +27,18 @@ export class WeekCalandar extends LitElement {
 
   // METHODS
   protected firstUpdated(): void {
+    this.detectScroll();
+    this.handleSelect();
     this.shadowRoot?.querySelector('#now-line')?.scrollIntoView({
       block: 'center',
       inline: 'center',
     });
-    this.detectScroll();
-    this.handleSelect();
   }
 
   detectScroll() {
     this.scrollView.addEventListener('scroll', () => {
       const { scrollLeft, offsetWidth, scrollWidth } = this.scrollView;
-      // console.log(
-      //   { scrollLeft },
-      //   { offsetWidth },
-      //   { scrollWidth },
-      //   { condition4Nxt: offsetWidth + scrollLeft >= scrollWidth },
-      //   { condition4Prev: scrollLeft === 0 }
-      // );
+
       if (offsetWidth + scrollLeft >= scrollWidth) {
         this.isNextShown = false;
       } else {
@@ -76,7 +71,7 @@ export class WeekCalandar extends LitElement {
 
   filterbyDate(date: string[]) {
     return this.isEmployeeDisplay
-      ? stubData.map((result) => {
+      ? this.employeeAppointments.map((result) => {
           return {
             ...result,
             appointments: result.appointments.filter((appointments) =>
@@ -84,15 +79,7 @@ export class WeekCalandar extends LitElement {
             ),
           };
         })
-      : [...stubData];
-
-    // console.log(
-    //   this.employeeAppointments.filter(
-    //     (result) => result.appointments.length > 0
-    //   ),
-    //   stubData.filter((result) => result.appointments.length > 0),
-    //   { date }
-    // );
+      : [...this.employeeAppointments];
   }
 
   handleChangeView(emp: boolean) {
@@ -103,11 +90,11 @@ export class WeekCalandar extends LitElement {
     const nowOffsetDay = Math.ceil(dayjs().diff(this.startOfWeek, 'day', true));
     const nowOffsetMinute = dayjs().diff(dayjs().startOf('day'), 'minute');
     const nowGridRow = `${nowOffsetMinute + 1} / span 1`;
-    const timeDisplay =
+    const timeVisibility =
       this.selectDay?.options[this.selectDay?.selectedIndex].value ===
         dayjs().format('YYYY-MM-DD') || !this.isEmployeeDisplay
-        ? 'block'
-        : 'none';
+        ? 'visible'
+        : 'hidden';
 
     const nowGridColumn = this.isEmployeeDisplay
       ? '1 / -1'
@@ -115,26 +102,96 @@ export class WeekCalandar extends LitElement {
     return {
       nowGridColumn,
       nowGridRow,
-      timeDisplay,
+      timeVisibility,
     };
   }
 
   handleSelect() {
     const selectDay = this.selectDay;
-    const { value: dayValue } = selectDay.options[selectDay.selectedIndex];
-    // this.filterbyDate([dayValue]);
     const selectEmployee = this.selectEmployee;
+    const { value: dayValue } = selectDay.options[selectDay.selectedIndex];
     const { value: employeeValue } =
       selectEmployee.options[selectEmployee.selectedIndex];
 
     this.filterByEmployee(employeeValue, this.filterbyDate([dayValue]));
-    console.log(dayValue, 'here');
   }
+
+  dragStart(e) {
+    e.dataTransfer.setData(
+      'card',
+      e.target.id
+    ); /* saves the Id of the card to be dragged */
+    e.dataTransfer.setData(
+      'mousePosition',
+      e.screenX
+    ); /* set the position of the mouse based on the screen distance */
+    e.dataTransfer.setData(
+      'startGrid',
+      e.target.style.gridColumnStart
+    ); /* Set the current start of the component grid */
+  }
+  allowDarg(e) {
+    e.preventDefault();
+  }
+
+  drop(e) {
+    const card = this.shadowRoot?.querySelector(
+      `#${e.dataTransfer.getData('card')}`
+    ) as HTMLElement; /* selects the card component */
+
+    const mouseOnDragStart =
+      e.dataTransfer.getData(
+        'mousePosition'
+      ); /* Retrive the mouse position when dragging starts*/
+    const oldCardGrid = Number(
+      e.dataTransfer.getData('startGrid')
+    ); /*  Retrive the grid start of the component before dragging */
+    const cardWidth = card.offsetWidth;
+    const differenceInGrid = Math.round(
+      (e.screenX - mouseOnDragStart) / cardWidth
+    );
+    const newCardGrid = oldCardGrid + differenceInGrid;
+    const {
+      date: cardDate,
+      startTime: cardStartTime,
+      serviceName: cardServiceName,
+      endTime: cardEndTime,
+      price: cardPrice,
+    } = card.dataset as unknown as appointment; /* Retrives the information of the appointment stored in the card data attribute */
+
+    this.employeeAppointments = this.employeeAppointments.map((data, i) => {
+      // REMOVES THE ITEM FROM OLD   APPOINTMENT ARRAY
+      if (i === oldCardGrid - 1) {
+        return {
+          ...data,
+          appointments: data.appointments.filter(
+            ({ date, startTime, endTime }) =>
+              `${date} ${startTime}-${endTime}` !==
+              `${cardDate} ${cardStartTime}-${cardEndTime}`
+          ),
+        };
+      }
+      // ADD ITEM TO NEW  APPOINTMENT ARRAY
+      if (i === newCardGrid - 1) {
+        return {
+          ...data,
+          appointments: [
+            ...data.appointments,
+            {
+              serviceName: cardServiceName,
+              date: cardDate,
+              startTime: cardStartTime,
+              endTime: cardEndTime,
+              price: Number(cardPrice),
+            },
+          ],
+        };
+      } else return data;
+    });
+  }
+
   protected render(): unknown {
-    const { nowGridColumn, nowGridRow, timeDisplay } = this.setTimeNow();
-    if (this.selectDay) {
-      this.handleSelect();
-    }
+    const { nowGridColumn, nowGridRow, timeVisibility } = this.setTimeNow();
 
     return html`<div class="week-calendar">
       <lit-media-query
@@ -314,6 +371,8 @@ export class WeekCalandar extends LitElement {
             <!-- Calendar grid starts here -->
             <div
               class="card-grid"
+              @drop=${this.drop}
+              @dragover=${this.allowDarg}
               style=${styleMap({
                 gridTemplateColumns: `repeat(${
                   this.isEmployeeDisplay ? this.employeeAppointments.length : 7
@@ -345,7 +404,7 @@ export class WeekCalandar extends LitElement {
               ${this.employeeAppointments.map(
                 ({ employeeName, appointments }, i) => {
                   return appointments.map(
-                    ({ serviceName, startTime, endTime, date }) => {
+                    ({ serviceName, startTime, endTime, date, price }) => {
                       const offsetMinute =
                         dayjs('2019-01-25')
                           .startOf('day')
@@ -365,22 +424,42 @@ export class WeekCalandar extends LitElement {
                       } / span 1`;
 
                       return html`<div
+                        id="draggable-${i}"
+                        data-date=${date}
+                        data-service-name=${serviceName}
+                        data-start-time=${startTime}
+                        data-end-time=${endTime}
+                        data-price=${price}
+                        draggable="true"
+                        @dragstart=${this.dragStart}
                         style=${styleMap({
                           gridRow,
                           gridColumn,
-                          background: '#343',
                           display: 'grid',
-                          placeContent: 'center',
                           color: '#fff',
+                          cursor: 'move',
                         })}
                       >
-                        ${employeeName}
-                        <br />
-                        ${serviceName}
-                        <br />
-                        on ${date}
-                        <br />
-                        ${startTime} - ${endTime}
+                        <calendar-card
+                          .data=${{
+                            time: `${startTime} - ${endTime}`,
+                            hairstyle: serviceName,
+                            apptStage:
+                              dayjs().diff(`${date} ${startTime}`, 'minute') < 0
+                                ? 'Upcoming'
+                                : dayjs().diff(`${date} ${endTime}`, 'minute') >
+                                  0
+                                ? 'Fulfilled'
+                                : 'Process',
+                            employeeName: employeeName,
+                            appointmentDetails: `${dayjs(
+                              durationOfService * 60000
+                            )
+                              .subtract(1, 'hour')
+                              .format('HH : mm')} min with Jordan Natolo`,
+                            price,
+                          } as SpDashboardAppointmentCardData}
+                        ></calendar-card>
                       </div>`;
                     }
                   );
@@ -393,7 +472,8 @@ export class WeekCalandar extends LitElement {
                   gridRow: nowGridRow,
                   gridColumn: nowGridColumn,
                   border: '1px solid red',
-                  display: timeDisplay,
+                  visibility: timeVisibility,
+                  zIndex: '2',
                 })}
               />
               <!-- Line ends here -->
